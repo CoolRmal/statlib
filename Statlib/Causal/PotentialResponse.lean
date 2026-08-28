@@ -29,7 +29,8 @@ abbrev PotentialResponse
 
 namespace PotentialResponse
 
-variable {Intervention : Type*} {Unit : Type*} {Value : Type*} {Index : Type*}
+variable {Intervention : Type*} {Unit : Type*} {Value : Type*}
+  {Index : Type*} {Source : Type*}
 
 /-- Selects each unit's response at the intervention supplied for that unit. -/
 def select
@@ -61,5 +62,20 @@ def comp
     (u : Unit) :
     response.comp intervention index u =
       response (intervention index u) u := rfl
+
+@[simp] theorem comp_id
+    (response : PotentialResponse Intervention Unit Value) :
+    response.comp (fun intervention _ ↦ intervention) = response := rfl
+
+@[simp] theorem id_comp
+    (response : PotentialResponse Intervention Unit Value) :
+    comp (fun value _ ↦ value) response = response := rfl
+
+theorem comp_assoc
+    (response : PotentialResponse Intervention Unit Value)
+    (intervention : PotentialResponse Index Unit Intervention)
+    (source : PotentialResponse Source Unit Index) :
+    (response.comp intervention).comp source =
+      response.comp (intervention.comp source) := rfl
 
 end PotentialResponse
