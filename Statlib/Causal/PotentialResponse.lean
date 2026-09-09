@@ -13,6 +13,7 @@ public import Mathlib.Init
 
 This module supplies an assumption-free functional representation of potential responses.
 
+`PotentialResponse.id` is the identity for same-unit substitution.
 `PotentialResponse.select` produces a theoretical selected response, not a recorded outcome.
 `PotentialResponse.comp` performs same-unit substitution.
 
@@ -32,6 +33,10 @@ namespace PotentialResponse
 variable {Intervention : Type*} {Unit : Type*} {Value : Type*}
   {Index : Type*} {Source : Type*}
 
+/-- The identity potential response returns its intervention and ignores the unit. -/
+def id : PotentialResponse Intervention Unit Intervention :=
+  fun intervention _ ↦ intervention
+
 /-- Selects each unit's response at the intervention supplied for that unit. -/
 def select
     (response : PotentialResponse Intervention Unit Value)
@@ -46,6 +51,9 @@ def comp
       PotentialResponse Index Unit Intervention) :
     PotentialResponse Index Unit Value :=
   fun index u ↦ response (intervention index u) u
+
+@[simp] theorem id_apply (intervention : Intervention) (u : Unit) :
+    (id : PotentialResponse Intervention Unit Intervention) intervention u = intervention := rfl
 
 @[simp] theorem select_apply
     (response : PotentialResponse Intervention Unit Value)
@@ -65,11 +73,11 @@ def comp
 
 @[simp] theorem comp_id
     (response : PotentialResponse Intervention Unit Value) :
-    response.comp (fun intervention _ ↦ intervention) = response := rfl
+    response.comp id = response := rfl
 
 @[simp] theorem id_comp
     (response : PotentialResponse Intervention Unit Value) :
-    comp (fun value _ ↦ value) response = response := rfl
+    id.comp response = response := rfl
 
 theorem comp_assoc
     (response : PotentialResponse Intervention Unit Value)
