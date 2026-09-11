@@ -31,13 +31,11 @@ Lets fix some design choices, choose the choice related to you goal
 
 List which PR/file you might be mainly use; also state what willl not be use 
 
-## 8. Missing infrastructure
-
-## 9. Proposed file organization
+## 8. Proposed file organization
 
 ```text
 Project/Area/Basic.lean
 Project/Area/Operations.lean
 Project/Area/MainTheorem.lean
-
+``` 
 Any comments are welcome! This is just a proposed design doc — the goal is to reduce communication overhead and serve as a reference for anyone joining the project later.
