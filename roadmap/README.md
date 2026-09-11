@@ -18,14 +18,14 @@ what is the realtionship between math informally and the thing formally you wann
 
 ## 6. Design decisions and conventions
 Lets fix some design choices, choose the choice related to you goal
-- carrier types: 
+- carrier types: what is the type of the object you wanna study
 - namespace
-- parameter order
-- totalization/boundary behavior
+- parameter order: what are the orders of the object you wanna approach
+- totalization/boundary behavior: any potential junk value?
 - composition convention
 - typeclass assumptions
 - finite/infinite conventions
-- representation choices
+
 
 ## 7. Existing Mathlib and Statlib foundations
 
