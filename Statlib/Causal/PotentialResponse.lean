@@ -17,6 +17,17 @@ This module supplies an assumption-free functional representation of potential r
 `PotentialResponse.select` produces a theoretical selected response, not a recorded outcome.
 `PotentialResponse.comp` performs same-unit substitution.
 
+For example, given `mediator : PotentialResponse Treatment Unit Mediator` and
+`outcome : PotentialResponse (Treatment × Mediator) Unit Outcome`, the response
+
+```lean
+outcome.comp (fun (treatment, mediatorTreatment) unit ↦
+  (treatment, mediator mediatorTreatment unit))
+```
+
+evaluated at `(a, a')` and `u` is `outcome (a, mediator a' u) u`, representing the nested
+response $Y(a, M(a'))$. The mediator and outcome responses are evaluated at the same unit `u`.
+
 Causal assumptions, estimands, estimators, probability structure, and statistical inference are
 deferred to later modules.
 -/
